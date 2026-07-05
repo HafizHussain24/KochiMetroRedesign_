@@ -1,0 +1,168 @@
+.help-page {
+  background-color: var(--kerala-cream);
+  min-height: 100vh;
+}
+
+.help-content {
+  padding: 4rem 0 6rem;
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 4rem;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.contact-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  text-align: center;
+  border-bottom: 4px solid var(--kmrl-teal);
+}
+
+.cc-icon {
+  color: var(--kmrl-teal);
+  margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cc-primary {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink-900);
+  margin-bottom: 0.25rem;
+}
+
+.cc-sub {
+  font-size: 0.85rem;
+  color: var(--ink-500);
+}
+
+.mt-5 { margin-top: 3rem; }
+.mt-4 { margin-top: 2rem; }
+.mr-2 { margin-right: 0.5rem; }
+.inline { display: inline-block; vertical-align: middle; }
+
+/* FAQs */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  overflow: hidden;
+  border: 1px solid var(--ink-50);
+}
+
+.faq-q {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: var(--white);
+  transition: var(--trans-fast);
+}
+
+.faq-q:hover {
+  background: var(--ink-50);
+}
+
+.faq-q h4 {
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--ink-900);
+}
+
+.faq-a {
+  padding: 0 1.5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background: var(--ink-50);
+}
+
+.faq-item.open .faq-a {
+  max-height: 200px;
+  padding: 1.25rem 1.5rem;
+}
+
+.faq-a p {
+  color: var(--ink-700);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Sidebar Forms */
+.form-card, .office-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.form-card h3, .office-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-700);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  transition: var(--trans-fast);
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--kmrl-teal);
+  box-shadow: 0 0 0 3px rgba(7, 175, 177, 0.1);
+}
+
+.office-card address {
+  font-style: normal;
+  color: var(--ink-700);
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .help-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .contact-cards { grid-template-columns: 1fr; }
+}

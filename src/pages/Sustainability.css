@@ -1,0 +1,305 @@
+
+.carbon-dash-section {
+  padding: 4rem 0;
+  margin-top: -60px;
+  position: relative;
+  z-index: 10;
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 4rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  align-items: center;
+}
+
+.large-ring {
+  width: 340px;
+  height: 340px;
+}
+
+.large-ring .progress-ring__circle-bg { stroke: var(--ink-50); }
+.large-ring .progress-ring__circle { stroke: var(--kerala-palm); }
+
+.large-ring .ring-value { font-size: 5rem; }
+.large-ring .ring-label { color: var(--ink-700); font-size: 1.1rem; max-width: 200px; }
+
+.dash-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.d-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--ink-50);
+  border-radius: var(--radius-md);
+}
+
+.d-icon {
+  font-size: 2.5rem;
+}
+
+.d-info strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--ink-900);
+}
+
+.d-info span {
+  font-size: 0.9rem;
+  color: var(--ink-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* Solar */
+.solar-section {
+  background: var(--kerala-canopy);
+  padding: var(--space-xxl) 0;
+  color: var(--white);
+  overflow: hidden;
+}
+
+.solar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.solar-desc {
+  font-size: 1.1rem;
+  color: var(--ink-200);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.solar-list {
+  list-style: none;
+  padding: 0;
+}
+
+.solar-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.solar-list li::before {
+  content: '☀️';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 0.9rem;
+}
+
+.solar-panel-art {
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(to bottom, #1a2a6c, #11998e, #2F80ED);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.sun-glow {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(253, 216, 53, 0.8) 0%, transparent 70%);
+}
+
+.panels-grid {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  padding: 10px;
+  transform: perspective(500px) rotateX(40deg);
+  transform-origin: bottom center;
+}
+
+.panel-cell {
+  background: rgba(13, 27, 42, 0.8);
+  border: 1px solid rgba(7, 175, 177, 0.4);
+  box-shadow: inset 0 0 10px rgba(7, 175, 177, 0.2);
+}
+
+.energy-lines {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.eline {
+  position: absolute;
+  bottom: 20px;
+  width: 2px;
+  height: 0;
+  background: #FDD835;
+  box-shadow: 0 0 10px #FDD835;
+  animation: energyFlow 2s infinite ease-in;
+}
+
+.e1 { left: 30%; animation-delay: 0s; }
+.e2 { left: 50%; animation-delay: 0.7s; }
+.e3 { left: 70%; animation-delay: 1.4s; }
+
+@keyframes energyFlow {
+  0% { height: 0; bottom: 40%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { height: 150px; bottom: 80%; opacity: 0; }
+}
+
+/* Initiatives */
+.initiatives-section {
+  padding: var(--space-xxl) 0;
+}
+
+.text-center { text-align: center; }
+
+.init-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.init-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-top: 4px solid var(--kerala-palm);
+  transition: var(--trans-base);
+}
+
+.init-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.i-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.init-card h3 {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.init-card p {
+  color: var(--ink-700);
+  font-size: 0.95rem;
+}
+
+/* Reports */
+.reports-section {
+  padding-bottom: var(--space-xxl);
+}
+
+.reports-box {
+  background: var(--white);
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ink-200);
+}
+
+.reports-box h2 {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.doc-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--ink-50);
+  border-radius: var(--radius-md);
+  transition: var(--trans-fast);
+}
+
+.doc-item:hover {
+  background: rgba(7, 175, 177, 0.1);
+}
+
+.doc-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.doc-info strong {
+  color: var(--ink-900);
+  font-size: 1rem;
+}
+
+.doc-info span {
+  color: var(--ink-500);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.doc-icon {
+  color: var(--kmrl-teal);
+}
+
+@media (max-width: 1024px) {
+  .dash-grid { grid-template-columns: 1fr; padding: 2rem; text-align: center; }
+  .solar-grid { grid-template-columns: 1fr; }
+  .init-grid { grid-template-columns: repeat(2, 1fr); }
+  .large-ring { margin: 0 auto; }
+}
+
+@media (max-width: 640px) {
+  .init-grid { grid-template-columns: 1fr; }
+  .doc-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .doc-icon { align-self: flex-end; }
+}
+
+
+.sustain-hero {
+  background-image: 
+    url("../assets/leaf-bg.svg"), 
+    url("../assets/leaf-bg.svg"),
+    url("../assets/other-tree-bg.svg") !important;
+  background-position: 
+    left -50px top -50px, 
+    right -50px bottom -50px,
+    left 260px bottom -30px !important;
+  background-repeat: no-repeat, no-repeat, no-repeat !important;
+  background-size: 300px 300px, 400px 400px, 280px !important;
+}

@@ -1,0 +1,244 @@
+.stations-page {
+  background-color: var(--kerala-cream);
+  min-height: 100vh;
+}
+
+
+
+.page-title {
+  font-size: var(--text-h1);
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+
+.page-subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--ink-200);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.search-bar-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--kmrl-teal);
+}
+
+.station-search-input {
+  width: 100%;
+  height: 64px;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0 24px 0 60px;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: var(--trans-base);
+}
+
+.station-search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(7, 175, 177, 0.4);
+}
+
+/* Filter Section */
+.filter-section {
+  padding: 2rem 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--ink-200);
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.filter-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: var(--ink-50);
+  color: var(--ink-700);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--trans-fast);
+  border: 1px solid var(--ink-200);
+}
+
+.filter-pill:hover {
+  background: var(--ink-200);
+}
+
+.filter-pill.active {
+  background: var(--kmrl-teal);
+  color: var(--white);
+  border-color: var(--kmrl-teal);
+}
+
+/* Results Grid */
+.results-section {
+  padding: 4rem 0;
+}
+
+.stations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.station-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: var(--trans-base);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.station-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.st-card-header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--ink-50);
+}
+
+.st-badge {
+  font-family: var(--font-mono);
+  background: var(--kerala-deep);
+  color: var(--white);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.st-titles h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.st-ml {
+  font-family: var(--font-malayalam);
+  font-size: 0.85rem;
+  color: var(--ink-500);
+}
+
+.st-card-body {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.st-info-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.st-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  background: var(--ink-50);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.st-facilities {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.st-connectivity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.conn-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.conn-tag.bus {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+}
+
+.conn-tag.water {
+  background: rgba(27, 108, 168, 0.1);
+  color: var(--kerala-water);
+}
+
+.conn-tag.auto {
+  background: rgba(255, 152, 0, 0.1);
+  color: #F57C00;
+}
+
+.st-card-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--ink-50);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 1024px) {
+  .stations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .station-search-input {
+    height: 56px;
+    font-size: 1rem;
+  }
+}
+
+.stations-hero {
+  background-image:
+    url("../assets/tree-bg.svg"),
+    url("../assets/vallam-bg.svg"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cg opacity='0.15'%3E%3Cpath d='M 100 170 Q 90 170 85 150 Q 80 110 130 90 L 400 90 L 400 170 Z' fill='white'/%3E%3Cpath d='M 132 95 Q 95 110 98 145 L 140 145 L 150 95 Z' fill='%2307afb1'/%3E%3Crect x='165' y='105' width='25' height='55' rx='3' fill='%2307afb1'/%3E%3Crect x='210' y='105' width='60' height='35' rx='4' fill='%2307afb1'/%3E%3Crect x='290' y='105' width='25' height='55' rx='3' fill='%2307afb1'/%3E%3Crect x='335' y='105' width='60' height='35' rx='4' fill='%2307afb1'/%3E%3Crect x='140' y='155' width='260' height='4' fill='%2307afb1'/%3E%3Crect x='50' y='175' width='350' height='2' fill='white'/%3E%3Crect x='130' y='165' width='40' height='10' rx='2' fill='white'/%3E%3Crect x='280' y='165' width='40' height='10' rx='2' fill='white'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-position: left -20px bottom -20px, left 140px bottom -25px, right bottom !important;
+  background-repeat: no-repeat, no-repeat, no-repeat !important;
+  background-size: 380px, 160px, 500px !important;
+}

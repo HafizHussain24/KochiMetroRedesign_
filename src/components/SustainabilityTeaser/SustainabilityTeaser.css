@@ -1,0 +1,165 @@
+.sustain-teaser {
+  padding: 6rem 0;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.sustain-teaser::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 100%;
+  background: var(--green);
+}
+
+.sustain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Left side - Cards */
+.sustain-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.sus-card {
+  background: var(--light-bg);
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: var(--trans-base);
+}
+
+.sus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(107, 142, 35, 0.15);
+  border-color: rgba(107, 142, 35, 0.3);
+}
+
+.sus-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(107, 142, 35, 0.1);
+  color: var(--green);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.sus-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.sus-card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Right side - Progress Ring */
+.sustain-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ring-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin-bottom: 2rem;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle-bg {
+  stroke: rgba(107, 142, 35, 0.1);
+}
+
+.progress-ring__circle {
+  stroke: var(--green);
+  stroke-dasharray: 754; /* 2 * PI * 120 */
+  stroke-dashoffset: 754;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-value {
+  font-size: 3.5rem;
+  font-weight: 900;
+  font-family: var(--font-secondary);
+  color: var(--green);
+  line-height: 1;
+}
+
+.ring-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-top: 0.5rem;
+}
+
+.sustain-visual h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.sustain-visual p {
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.btn-green {
+  display: inline-block;
+  background: var(--green);
+  color: white;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  transition: var(--trans-base);
+}
+
+.btn-green:hover {
+  background: #5a781d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107, 142, 35, 0.3);
+}
+
+@media (max-width: 900px) {
+  .sustain-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .sustain-visual {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .sustain-cards {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 80 340 100">
+  <style>
+    svg { opacity: 0.15 !important; }
+    .w { fill: white !important; }
+    .t { fill: #07afb1 !important; }
+  </style>
+  <path d="M 100 170 Q 90 170 85 150 Q 80 110 130 90 L 400 90 L 400 170 Z" class="w"/>
+  <path d="M 132 95 Q 95 110 98 145 L 140 145 L 150 95 Z" class="t"/>
+  <rect x="165" y="105" width="25" height="55" rx="3" class="t"/>
+  <rect x="210" y="105" width="60" height="35" rx="4" class="t"/>
+  <rect x="290" y="105" width="25" height="55" rx="3" class="t"/>
+  <rect x="335" y="105" width="60" height="35" rx="4" class="t"/>
+  <rect x="140" y="155" width="260" height="4" class="t"/>
+</svg>

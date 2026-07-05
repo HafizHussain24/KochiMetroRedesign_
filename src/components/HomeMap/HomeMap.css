@@ -1,0 +1,372 @@
+.home-map-container {
+  background-color: var(--kerala-deep);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 2rem;
+  min-height: 700px;
+}
+
+.map-header {
+  margin-bottom: 2rem;
+}
+
+.map-scroll-area {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--kmrl-teal) rgba(255,255,255,0.1);
+  /* Extra bottom padding so bottom-positioned labels aren't clipped */
+  padding-bottom: 60px;
+}
+
+.map-scroll-area:active {
+  cursor: grabbing;
+}
+
+.interactive-svg-map {
+  /* Wide enough to contain all 25 stations at generous spacing */
+  min-width: 1200px;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  display: block;
+  margin: 0 auto;
+  overflow: visible; /* allow labels outside viewBox to show */
+}
+
+/* Map Lines */
+.map-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.main-line {
+  stroke: var(--kmrl-teal);
+  stroke-width: 6;
+}
+
+.branch-line {
+  stroke: var(--kmrl-teal);
+  stroke-width: 5;
+  stroke-dasharray: 10 6;
+  opacity: 0.75;
+}
+
+/* Station Nodes */
+.station-node {
+  cursor: pointer;
+  outline: none;
+}
+
+.station-interchange {
+  fill: var(--kerala-deep);
+  stroke: var(--white);
+  stroke-width: 2.5;
+}
+
+.station-water-bg {
+  fill: rgba(27, 108, 168, 0.25);
+  stroke: var(--kerala-water);
+  stroke-width: 1.5;
+}
+
+.station-dot {
+  fill: var(--white);
+  stroke: var(--kmrl-teal);
+  stroke-width: 3;
+  cursor: pointer;
+}
+
+/* Colour dot on hover/active — NO transform (prevents SVG vibration) */
+.station-node:hover .station-dot,
+.station-node.active .station-dot {
+  fill: var(--kmrl-teal);
+}
+
+/* Active ring */
+.station-active-ring {
+  fill: none;
+  stroke: var(--kmrl-teal);
+  stroke-width: 2;
+  opacity: 0.4;
+}
+
+/* Train icon */
+.train-icon-group rect,
+.train-icon-group circle {
+  /* SVG native — no CSS animation needed */
+}
+
+/* ── Station Labels ─────────────────────────────────────────────────────── */
+/* Pure SVG <text> — no rect badges, no overflow issues */
+
+.station-name {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  fill: var(--white);
+  font-weight: 700;
+  paint-order: stroke fill;
+  stroke: var(--kerala-deep);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.station-code {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  fill: var(--kmrl-teal);
+  font-weight: 700;
+  paint-order: stroke fill;
+  stroke: var(--kerala-deep);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* Highlight on hover/active (parent SVG g → child text) */
+.station-node:hover .station-name,
+.station-node.active .station-name {
+  fill: var(--white);
+}
+
+.station-node:hover .station-code,
+.station-node.active .station-code {
+  fill: var(--kmrl-teal-light, #4de8ea);
+}
+
+/* ── Legend ─────────────────────────────────────────────────────────────── */
+.map-legend {
+  position: absolute;
+  bottom: 24px;
+  left: 80px;
+  background: var(--glass-dark);
+  backdrop-filter: blur(8px);
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  color: var(--white);
+  font-size: var(--text-xs);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.leg-line { width: 20px; height: 3px; border-radius: 2px; }
+.leg-line.main { background: var(--kmrl-teal); }
+.leg-line.branch {
+  background: none;
+  border-top: 3px dashed var(--kmrl-teal);
+  height: 0;
+  opacity: 0.75;
+}
+
+.leg-dot { width: 12px; height: 12px; border-radius: 50%; }
+.leg-dot.interchange { border: 2px solid var(--white); background: transparent; }
+.leg-dot.water { background: rgba(27, 108, 168, 0.5); border: 1px solid var(--kerala-water); }
+
+/* ── Backdrop (click outside to close panel) ────────────────────────────── */
+.panel-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  background: transparent;
+  cursor: default;
+}
+
+/* ── Slide-in Panel ─────────────────────────────────────────────────────── */
+.glass-panel {
+  background: var(--glass-light);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255,255,255,0.5);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+}
+
+.station-panel {
+  position: absolute;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  transition: right var(--trans-base);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink-900);
+}
+
+.station-panel.open {
+  right: 0;
+}
+
+.close-panel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--ink-500);
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  transition: var(--trans-fast);
+}
+
+.close-panel:hover {
+  background: rgba(0,0,0,0.1);
+  color: var(--ink-900);
+}
+
+.panel-header {
+  padding: 2.5rem 2rem 1.5rem;
+  border-bottom: 4px solid var(--kmrl-teal);
+}
+
+.panel-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.station-code-large {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: var(--ink-900);
+  color: var(--white);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.panel-title-row h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.ml-name {
+  font-family: var(--font-malayalam);
+  font-size: 0.85rem;
+  color: var(--ink-500);
+}
+
+.zone-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background: rgba(0,0,0,0.05);
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+}
+
+.panel-content {
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.panel-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ink-200);
+}
+
+.panel-section:last-child {
+  border-bottom: none;
+}
+
+.panel-section h4 {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--kmrl-teal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.departures-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dep-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  gap: 1rem;
+}
+
+.dep-row span { color: var(--ink-700); }
+
+.connectivity-list, .nearby-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.connectivity-list li {
+  font-size: 0.9rem;
+  color: var(--ink-700);
+}
+
+.nearby-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.5);
+  border-radius: var(--radius-sm);
+}
+
+.place-name { color: var(--ink-900); font-weight: 500; }
+.place-dist { color: var(--ink-500); font-size: 0.8rem; }
+
+.panel-actions {
+  margin-top: 1.5rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .station-panel {
+    top: auto;
+    bottom: -100%;
+    right: 0;
+    width: 100%;
+    height: 75vh;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.5);
+    border-radius: 24px 24px 0 0;
+    transition: bottom var(--trans-base);
+  }
+
+  .station-panel.open {
+    bottom: 0;
+    right: 0;
+  }
+
+  .map-legend {
+    left: 16px;
+    bottom: 16px;
+    padding: 0.625rem 0.75rem;
+  }
+}

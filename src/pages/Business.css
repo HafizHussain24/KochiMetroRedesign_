@@ -1,0 +1,139 @@
+.business-page {
+  background-color: var(--kerala-cream);
+  min-height: 100vh;
+}
+
+.business-content {
+  padding: 4rem 0 6rem;
+}
+
+/* Opportunity cards grid */
+.opp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.opp-card {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid var(--kmrl-teal);
+  transition: var(--trans-base);
+}
+
+.opp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  border-top-color: var(--kerala-gold);
+}
+
+.opp-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(7, 175, 177, 0.1);
+  color: var(--kmrl-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  transition: var(--trans-base);
+}
+
+.opp-card:hover .opp-icon {
+  background: var(--kmrl-teal);
+  color: var(--white);
+}
+
+.opp-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.opp-card p {
+  color: var(--ink-700);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.opp-card .btn-outline {
+  width: 100%;
+  justify-content: center;
+}
+
+/* CTA Banner */
+.biz-cta {
+  background: var(--kerala-deep);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  gap: 2rem;
+}
+
+.biz-cta::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(7, 175, 177, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.cta-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.cta-content p {
+  color: rgba(255,255,255,0.75);
+  font-size: 1.05rem;
+}
+
+.biz-cta .btn-primary {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.mt-5 { margin-top: 2rem; }
+.ml-2 { margin-left: 0.5rem; }
+
+@media (max-width: 1024px) {
+  .opp-grid { grid-template-columns: repeat(2, 1fr); }
+  .biz-cta { flex-direction: column; text-align: center; }
+  .biz-cta .btn-primary { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 640px) {
+  .opp-grid { grid-template-columns: 1fr; }
+}
+
+
+.business-hero {
+  background-image: url("../assets/kochi-skyline-bg.svg") !important;
+  background-position: center bottom !important;
+  background-repeat: repeat-x !important;
+  background-size: 100% 200px !important;
+}

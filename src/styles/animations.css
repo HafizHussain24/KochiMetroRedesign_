@@ -1,0 +1,99 @@
+/* Common Entrance Animations */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out-expo), transform var(--dur-slow) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+.stagger-4 { transition-delay: 400ms; }
+.stagger-5 { transition-delay: 500ms; }
+
+/* Image subtle zoom */
+.image-zoom-container {
+  overflow: hidden;
+}
+
+.image-zoom-container img {
+  transform: scale(1.05);
+  transition: transform var(--dur-cinematic) var(--ease-out-expo);
+}
+
+.image-zoom-container.is-visible img,
+.image-zoom-container:hover img {
+  transform: scale(1);
+}
+
+/* Ticker Animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Ring draw for sustainability */
+@keyframes drawRing {
+  0% { stroke-dashoffset: 754; }
+  100% { stroke-dashoffset: 98; /* roughly 87% filled */ }
+}
+
+/* Rain / Noise subtle effect */
+@keyframes noise {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+/* Pulse animation for map markers */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(7, 175, 177, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(7, 175, 177, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(7, 175, 177, 0); }
+}
+
+.pulse-marker:hover {
+  animation: pulse 1s infinite;
+}
+
+/* Floating particle keyframes (used in hero) */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(2deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40% { transform: translateY(18px) rotate(-2deg); }
+  70% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-15px) scale(1.03); }
+}
+
+/* Skip to content accessibility link */
+.skip-nav {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--kmrl-teal);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  z-index: 99999;
+  font-weight: 600;
+  transition: top var(--dur-fast) ease;
+}
+
+.skip-nav:focus {
+  top: 1rem;
+}
