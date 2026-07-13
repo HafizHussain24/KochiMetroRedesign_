@@ -55,7 +55,7 @@ const HeroSection = React.memo(({ isML }) => {
     const frameCount = 204;
     const scrollObj = { frame: 0 };
     const images = [];
-    const currentFrame = index => `/src/assets/hero-frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
+    const currentFrame = index => `/hero-frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
     
     const img = new Image();
     img.src = currentFrame(0);
