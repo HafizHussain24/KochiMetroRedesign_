@@ -16,6 +16,7 @@ import Help from './pages/Help';
 import About from './pages/About';
 import { useScrollAnimations } from './hooks/useScrollAnimation';
 import { ToastContainer } from './components/Toast/Toast';
+import Chatbot from './components/Chatbot';
 import { useEffect } from 'react';
 import './styles/global.css';
 
@@ -52,6 +53,7 @@ function AppContent() {
       </main>
       <Footer />
       <ToastContainer />
+      <Chatbot />
     </div>
   );
 }
