@@ -4,6 +4,17 @@
   --kmrl-teal-dark: #058A8C;
   --kmrl-teal-glow: rgba(0, 168, 181, 0.2);
 
+  /* Premium Redesign Brand Variables */
+  --premium-teal: #00C2D1;
+  --premium-teal-dark: #0098A6;
+  --premium-teal-glow: #4DD9E3;
+  --premium-kerala-deep: #061218;
+  --premium-kerala-gold: #D4A017;
+  --premium-branch-lime: #C1D72D;
+  --premium-branch-green: #8FB339;
+  --premium-font-display: 'Fraunces', Georgia, serif;
+  --premium-font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+
   /* Kerala Nature Palette */
   --kerala-deep: #003B46;
   --kerala-canopy: #185A48;

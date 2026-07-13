@@ -64,7 +64,7 @@
 
 /* Solar */
 .solar-section {
-  background: var(--kerala-canopy);
+  background: var(--kerala-deep, #003B46);
   padding: var(--space-xxl) 0;
   color: var(--white);
   overflow: hidden;

@@ -116,24 +116,6 @@ export default function About() {
               </div>
 
               <div className="about-section">
-                <h2 className="section-title">Vision & Mission</h2>
-                <div className="vm-box">
-                  <div className="vm-icon">👁️</div>
-                  <div>
-                    <h3>Our Vision</h3>
-                    <p>To make Kochi a world-class city with an integrated, smart, and sustainable urban transport system.</p>
-                  </div>
-                </div>
-                <div className="vm-box">
-                  <div className="vm-icon">🎯</div>
-                  <div>
-                    <h3>Our Mission</h3>
-                    <p>To provide a safe, reliable, and comfortable commuting experience while ensuring environmental sustainability and social inclusivity.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="about-section">
                 <h2 className="section-title">Leadership</h2>
                 <div className="leadership-grid">
                   <div className="leader-card">
@@ -197,6 +179,24 @@ export default function About() {
                   <div className="tl-item future">
                     <span className="tl-year">Ongoing</span>
                     <span className="tl-desc">Phase 2 (Kakkanad Extension)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="about-section sidebar-section">
+                <h2 className="section-title">Vision & Mission</h2>
+                <div className="vm-box">
+                  <div className="vm-icon">👁️</div>
+                  <div>
+                    <h3>Our Vision</h3>
+                    <p>To make Kochi a world-class city with an integrated, smart, and sustainable urban transport system.</p>
+                  </div>
+                </div>
+                <div className="vm-box">
+                  <div className="vm-icon">🎯</div>
+                  <div>
+                    <h3>Our Mission</h3>
+                    <p>To provide a safe, reliable, and comfortable commuting experience while ensuring environmental sustainability and social inclusivity.</p>
                   </div>
                 </div>
               </div>

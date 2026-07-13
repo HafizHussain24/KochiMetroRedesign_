@@ -10,45 +10,15 @@
   background-color: var(--kerala-deep);
 }
 
-/* ── AERIAL PHOTO LAYER (Option D — Kerala Duotone) ────── */
-.hero-photo-layer {
+/* ── HERO CANVAS LAYER ────── */
+.hero-canvas-layer {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-size: cover;
-  background-position: center 35%;
-  background-repeat: no-repeat;
-  /* Slightly darken the natural photo to keep text readable */
+  width: 100%;
+  height: 100%;
   filter: brightness(0.78);
-  /* Slow Ken-Burns drift — keeps it alive without being distracting */
-  animation: heroDrift 22s ease-in-out infinite alternate;
-}
-
-@keyframes heroDrift {
-  0% {
-    transform: scale(1.05) translate(0%, 0%);
-  }
-
-  100% {
-    transform: scale(1.12) translate(-1.5%, -1%);
-  }
-}
-
-
-
-
-/* Darkening gradient on top of the photo:
-   - Heavy dark left (text lives here)
-   - Tapers to near-transparent on the right so the city shows through */
-.hero-photo-layer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg,
-      rgba(4, 22, 26, 0.82) 0%,
-      rgba(4, 22, 26, 0.55) 40%,
-      rgba(4, 22, 26, 0.20) 70%,
-      rgba(0, 80, 85, 0.08) 100%);
+  /* The canvas will draw with object-fit: cover logic in JS */
 }
 
 /* ── HERO BACKGROUND (tracks + particles overlay) ──────── */
@@ -58,8 +28,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Transparent so the photo layer shows below */
-  background: transparent;
+  /* Darkening gradient on top of the canvas:
+     - Heavy dark left (text lives here)
+     - Tapers to near-transparent on the right so the city shows through */
+  background: linear-gradient(105deg,
+      rgba(4, 22, 26, 0.82) 0%,
+      rgba(4, 22, 26, 0.55) 40%,
+      rgba(4, 22, 26, 0.20) 70%,
+      rgba(0, 80, 85, 0.08) 100%);
   z-index: 1;
 }
 
@@ -245,95 +221,90 @@
 /* Quick Services */
 .quick-services {
   position: relative;
-  z-index: 10;
-  padding: var(--space-xl) 0 var(--space-xxl);
+  z-index: 15;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: var(--space-xl) 0;
   background: var(--kerala-cream);
 }
 
-.qs-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+.qs-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+  border-radius: 100px;
+  padding: 1.25rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 59, 70, 0.08), 0 1px 3px rgba(0, 59, 70, 0.02);
+  gap: 1.5rem;
+  border: 1px solid rgba(0, 168, 181, 0.08);
+  max-width: 950px;
+  margin: 0 auto;
 }
 
 .qs-card {
   display: flex;
-  flex-direction: column;
-  padding: 1.5rem;
-  border-right: 1px solid var(--ink-50);
-  background: var(--white);
-  transition: var(--trans-base);
-  position: relative;
-}
-
-.qs-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--kmrl-teal);
-  opacity: 0;
-  transition: var(--trans-fast);
-}
-
-.qs-card:last-child {
-  border-right: none;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 50px;
+  background: transparent;
+  transition: all var(--dur-base) var(--ease-out-expo);
+  flex: 1;
+  text-decoration: none;
 }
 
 .qs-card:hover {
-  background: var(--kmrl-teal);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(7, 175, 177, 0.2);
-  z-index: 2;
-  color: var(--white);
-}
-
-.qs-card:hover::before {
-  opacity: 1;
-}
-
-.qs-card:hover .qs-icon {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.qs-card:hover .qs-text strong,
-.qs-card:hover .qs-text span {
-  color: var(--white);
+  background: rgba(0, 168, 181, 0.05); /* Fallback */
+  background: color-mix(in srgb, var(--kmrl-teal) 5%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 168, 181, 0.05);
 }
 
 .qs-icon {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ink-50);
-  border-radius: var(--radius-md);
-  transition: var(--trans-fast);
+  background: rgba(0, 168, 181, 0.08); /* Fallback */
+  background: color-mix(in srgb, var(--kmrl-teal) 8%, transparent);
+  border-radius: 14px;
+  color: var(--kmrl-teal);
+  transition: all var(--dur-fast) ease-out;
+  flex-shrink: 0;
 }
 
 .qs-card:hover .qs-icon {
-  background: var(--kmrl-teal-glow);
+  background: var(--kmrl-teal);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.qs-lucide-icon {
+  stroke-width: 2px;
+}
+
+.qs-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
 .qs-text strong {
   display: block;
   font-family: var(--font-body);
+  font-weight: 600;
   color: var(--ink-900);
-  margin-bottom: 0.25rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
 }
 
 .qs-text span {
-  font-size: var(--text-xs);
+  display: block;
+  font-size: 0.8rem;
   color: var(--ink-500);
+  font-weight: 400;
 }
 
 /* Mission Section */
@@ -359,48 +330,79 @@
 
 .mission-card {
   border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 59, 70, 0.15);
+  transition: all var(--dur-base) var(--ease-out-expo);
+  cursor: pointer;
+}
+
+.mission-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 59, 70, 0.25);
+}
+
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 0;
 }
 
-.c1 {
-  grid-row: 1 / 3;
-  background: linear-gradient(135deg, var(--kmrl-teal), var(--kerala-water));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  color: var(--white);
+.mission-card.c1::before { background-image: var(--bg-img); }
+.mission-card.c2::before { background-image: var(--bg-img); }
+.mission-card.c3::before { background-image: var(--bg-img); }
+
+.mission-card:hover::before {
+  transform: scale(1.08);
 }
 
-.c2 {
-  background: linear-gradient(135deg, var(--kerala-moss), var(--kerala-deep));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.25rem;
-  color: var(--white);
+.mission-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to top, rgba(0, 30, 40, 0.95), rgba(0, 30, 40, 0.4) 60%, transparent);
+  z-index: 1;
 }
 
-.c3 {
-  background: linear-gradient(135deg, var(--kerala-gold), var(--kerala-spice));
+.mission-card-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.25rem;
-  color: var(--white);
 }
+
+.c1 .mission-card-content { padding: 1.8rem; }
+.c2 .mission-card-content { padding: 1.5rem; }
+.c3 .mission-card-content { padding: 1.5rem; }
+
+.c1 { grid-row: 1 / 3; }
 
 .mission-card-label {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 0.2rem;
+  font-family: var(--premium-font-display, 'Fraunces', Georgia, serif);
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
 }
 
 .mission-card-sub {
-  font-size: 0.78rem;
-  opacity: 0.8;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 500;
 }
 
 .section-label {
@@ -588,7 +590,7 @@
 
 /* Sustainability Teaser */
 .sustain-teaser {
-  background: var(--kerala-canopy);
+  background: var(--kerala-deep, #003B46);
   padding: var(--space-xxl) 0;
   color: var(--white);
 }
@@ -764,16 +766,24 @@
 
 /* Responsive Overrides */
 @media (max-width: 1024px) {
-  .qs-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .quick-services {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: var(--space-lg) 0;
   }
 
-  .qs-card:nth-child(3n) {
-    border-right: none;
+  .qs-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 32px;
+    padding: 1.25rem;
+    gap: 1rem;
+    border: 1px solid rgba(0, 168, 181, 0.06);
   }
 
-  .qs-card:nth-child(-n+3) {
-    border-bottom: 1px solid var(--ink-50);
+  .qs-card {
+    border-radius: 20px;
+    padding: 0.75rem 1rem;
   }
 
   .mission-grid,
@@ -808,16 +818,22 @@
     flex-direction: column;
   }
 
-  .qs-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .quick-services {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: var(--space-md) 0;
   }
 
-  .qs-card:nth-child(2n) {
-    border-right: none;
+  .qs-bar {
+    grid-template-columns: 1fr;
+    border-radius: 24px;
+    padding: 1rem;
+    gap: 0.75rem;
   }
 
-  .qs-card:nth-child(-n+4) {
-    border-bottom: 1px solid var(--ink-50);
+  .qs-card {
+    border-radius: 16px;
+    padding: 0.65rem 0.85rem;
   }
 
   .mission-images {

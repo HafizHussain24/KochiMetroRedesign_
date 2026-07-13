@@ -1,10 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Ticket, Map, CreditCard } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HomeMap from '../components/HomeMap/HomeMap';
 import { NEWS } from '../data/news';
-import heroAerial from '../assets/KeralaAerialView.jpg';
+import metroMissionImg from '../assets/metro_rail_mission.png';
+import waterMissionImg from '../assets/water_metro_mission.png';
+import feederMissionImg from '../assets/feeder_bus_mission.png';
 import './Home.css';
-
 
 // Intersection Observer Hook for scroll animations
 function useOnScreen(ref, rootMargin = '0px') {
@@ -37,7 +41,139 @@ function useCountUp(target, duration = 2000, inView) {
   return count;
 }
 
+const HeroSection = React.memo(({ isML }) => {
+  const heroRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const context = canvas.getContext('2d');
+    
+    const frameCount = 204;
+    const scrollObj = { frame: 0 };
+    const images = [];
+    const currentFrame = index => `/src/assets/hero-frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
+    
+    const img = new Image();
+    img.src = currentFrame(0);
+    img.onload = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawImageCover(context, img, canvas.width, canvas.height);
+    };
+    images[0] = img;
+    
+    for (let i = 1; i < frameCount; i++) {
+      const preImg = new Image();
+      preImg.src = currentFrame(i);
+      images.push(preImg);
+    }
+    
+    function drawImageCover(ctx, imgToDraw, canvasWidth, canvasHeight) {
+      if (!imgToDraw) return;
+      const imgRatio = imgToDraw.width / imgToDraw.height;
+      const canvasRatio = canvasWidth / canvasHeight;
+      let drawWidth, drawHeight, x, y;
+      
+      if (canvasRatio > imgRatio) {
+        drawWidth = canvasWidth;
+        drawHeight = canvasWidth / imgRatio;
+        x = 0;
+        y = (canvasHeight - drawHeight) / 2;
+      } else {
+        drawWidth = canvasHeight * imgRatio;
+        drawHeight = canvasHeight;
+        x = (canvasWidth - drawWidth) / 2;
+        y = 0;
+      }
+      
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(imgToDraw, x, y, drawWidth, drawHeight);
+    }
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (images[scrollObj.frame]) {
+        drawImageCover(context, images[scrollObj.frame], canvas.width, canvas.height);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: 'top top',
+        end: '+=2500', 
+        scrub: 1,
+        pin: true,
+      }
+    });
+
+    tl.to(scrollObj, {
+      frame: frameCount - 1,
+      snap: 'frame',
+      ease: 'none',
+      onUpdate: () => {
+        const frame = scrollObj.frame;
+        if (images[frame] && images[frame].complete) {
+          drawImageCover(context, images[frame], canvas.width, canvas.height);
+        }
+      }
+    });
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+      tl.kill();
+    };
+  }, []);
+
+  return (
+    <section className="hero-section" ref={heroRef}>
+
+      {/* ── Scroll Driven Canvas Layer ── */}
+      <canvas ref={canvasRef} className="hero-canvas-layer" />
+
+      <div className="hero-background">
+        <div className="rain-noise"></div>
+      </div>
+
+      <div className="container hero-content">
+        <div className="hero-text-block">
+          <span className="eyebrow fade-up stagger-1">India's Most Advanced Metro Network</span>
+          <h1 className="hero-title fade-up stagger-2">
+            {isML ? 'കൊച്ചി, ചലിക്കുന്നു.' : 'Kochi, in Motion.'}
+          </h1>
+          <p className="hero-subtitle fade-up stagger-3">
+            {isML ? '26 സ്റ്റേഷനുകൾ. 30 കി.മി. ഒരു തടസ്സമില്ലാത്ത നഗരം.' : '26 stations. 30 km. One seamless city.'}
+          </p>
+
+          <div className="hero-actions fade-up stagger-4">
+            <Link to="/ticketing" className="btn-primary hero-btn">Plan My Journey →</Link>
+            <a href="#network" className="btn-outline hero-btn-outline">Explore Network</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Live Ticker */}
+      <div className="hero-ticker">
+        <div className="ticker-content">
+          Next train from Aluva: 2 min &nbsp;|&nbsp; Ernakulam South: 5 min &nbsp;|&nbsp; M.G Road: 3 min &nbsp;|&nbsp; Vyttila: 4 min &nbsp;|&nbsp; Thripunithura: 7 min
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="scroll-indicator"></div>
+    </section>
+  );
+});
+
 export default function Home() {
+
   const statsRef = useRef(null);
   const statsInView = useOnScreen(statsRef);
 
@@ -63,71 +199,37 @@ export default function Home() {
     <div className="home-page">
 
       {/* ══════════════ HERO SECTION ══════════════ */}
-      <section className="hero-section">
-
-        {/* ── Real Kochi photo — natural, no duotone ── */}
-        <div
-          className="hero-photo-layer"
-          style={{ backgroundImage: `url(${heroAerial})` }}
-        />
-
-        <div className="hero-background">
-          <div className="rain-noise"></div>
-          {/* Animated SVG Metro Tracks Background */}
-          <svg className="hero-tracks" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-            <path d="M-100,800 Q400,600 1100,200" stroke="rgba(7, 175, 177, 0.15)" strokeWidth="4" fill="none" />
-            <path d="M-100,820 Q400,620 1100,220" stroke="rgba(7, 175, 177, 0.15)" strokeWidth="4" fill="none" />
-            <path d="M-100,780 Q400,580 1100,180" stroke="rgba(7, 175, 177, 0.15)" strokeWidth="4" fill="none" />
-
-            {/* Animated Light on tracks */}
-            <circle cx="0" cy="0" r="6" fill="var(--kmrl-teal)" filter="blur(2px)">
-              <animateMotion dur="4s" repeatCount="indefinite" path="M-100,800 Q400,600 1100,200" />
-            </circle>
-          </svg>
-
-        </div>
-
-        <div className="container hero-content">
-          <div className="hero-text-block">
-            <span className="eyebrow fade-up stagger-1">India's Most Advanced Metro Network</span>
-            <h1 className="hero-title fade-up stagger-2">
-              {isML ? 'കൊച്ചി, ചലിക്കുന്നു.' : 'Kochi, in Motion.'}
-            </h1>
-            <p className="hero-subtitle fade-up stagger-3">
-              {isML ? '26 സ്റ്റേഷനുകൾ. 30 കി.മി. ഒരു തടസ്സമില്ലാത്ത നഗരം.' : '26 stations. 30 km. One seamless city.'}
-            </p>
-
-            <div className="hero-actions fade-up stagger-4">
-              <Link to="/ticketing" className="btn-primary hero-btn">Plan My Journey →</Link>
-              <a href="#network" className="btn-outline hero-btn-outline">Explore Network</a>
-            </div>
-          </div>
-        </div>
-
-        {/* Live Ticker */}
-        <div className="hero-ticker">
-          <div className="ticker-content">
-            Next train from Aluva: 2 min &nbsp;|&nbsp; Ernakulam South: 5 min &nbsp;|&nbsp; M.G Road: 3 min &nbsp;|&nbsp; Vyttila: 4 min &nbsp;|&nbsp; Thripunithura: 7 min
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="scroll-indicator"></div>
-      </section>
+      <HeroSection isML={isML} />
 
       {/* ══════════════ QUICK SERVICES ══════════════ */}
       <section className="quick-services">
         <div className="container">
-          <div className="qs-grid">
+          <div className="qs-bar">
             {[
-              { icon: '🎫', label: 'Buy Ticket', sub: 'Online booking', href: 'https://kochimetro.org' },
-              { icon: '🗺️', label: 'Plan Journey', sub: 'Routes & fares', href: '/ticketing' },
-              { icon: '🅿️', label: 'Parking', sub: 'Book a space online', href: 'https://kochimetro.org' },
-              { icon: '💳', label: 'Kochi1 Card', sub: 'Recharge & manage', href: 'https://kochimetro.org' },
-              { icon: '🚨', label: 'Live Alerts', sub: 'Service status & updates', href: '#' },
-              { icon: '📞', label: 'Contact', sub: '1800-425-0355 | Free', href: '/help' },
+              {
+                icon: <Ticket size={22} className="qs-lucide-icon" />,
+                label: isML ? 'ടിക്കറ്റ് വാങ്ങുക' : 'Buy Ticket',
+                sub: isML ? 'ഓൺലൈൻ ബുക്കിംഗ്' : 'Online booking',
+                href: 'https://kochimetro.org'
+              },
+              {
+                icon: <Map size={22} className="qs-lucide-icon" />,
+                label: isML ? 'യാത്ര പ്ലാൻ ചെയ്യുക' : 'Plan Journey',
+                sub: isML ? 'റൂട്ടുകളും നിരക്കുകളും' : 'Routes & fares',
+                href: '/ticketing'
+              },
+              {
+                icon: <CreditCard size={22} className="qs-lucide-icon" />,
+                label: isML ? 'കൊച്ചി 1 കാർഡ്' : 'Kochi1 Card',
+                sub: isML ? 'റീചാർജ് & മാനേജ് ചെയ്യാം' : 'Recharge & manage',
+                href: 'https://kochimetro.org'
+              },
             ].map((item, index) => (
-              <a key={item.label} href={item.href} className={`qs-card animate-on-scroll ${statsInView ? 'is-visible stagger-' + (index % 3 + 1) : ''}`}>
+              <a
+                key={item.label}
+                href={item.href}
+                className={`qs-card animate-on-scroll ${statsInView ? 'is-visible stagger-' + (index % 4 + 1) : ''}`}
+              >
                 <div className="qs-icon">{item.icon}</div>
                 <div className="qs-text">
                   <strong>{item.label}</strong>
@@ -144,17 +246,23 @@ export default function Home() {
         <div className="container">
           <div className="mission-grid">
             <div className="mission-images image-zoom-container animate-on-scroll is-visible">
-              <div className="mission-card c1">
-                <span className="mission-card-label">🚇 {isML ? 'മെട്രോ' : 'Metro Rail'}</span>
-                <span className="mission-card-sub">{isML ? '26 സ്റ്റേഷൻ · 30 കി.മി' : '26 Stations · 30 km'}</span>
+              <div className="mission-card c1" style={{ '--bg-img': `url(${metroMissionImg})` }}>
+                <div className="mission-card-content">
+                  <span className="mission-card-label">{isML ? 'മെട്രോ' : 'Metro Rail'}</span>
+                  <span className="mission-card-sub">{isML ? '26 സ്റ്റേഷൻ · 30 കി.മി' : '26 Stations · 30 km'}</span>
+                </div>
               </div>
-              <div className="mission-card c2">
-                <span className="mission-card-label">⛵ {isML ? 'വാട്ടർ മെട്രോ' : 'Water Metro'}</span>
-                <span className="mission-card-sub">{isML ? 'ജലമാർഗ ഗതാഗതം' : 'Electric vessel network'}</span>
+              <div className="mission-card c2" style={{ '--bg-img': `url(${waterMissionImg})` }}>
+                <div className="mission-card-content">
+                  <span className="mission-card-label">{isML ? 'വാട്ടർ മെട്രോ' : 'Water Metro'}</span>
+                  <span className="mission-card-sub">{isML ? 'ജലമാർഗ ഗതാഗതം' : 'Electric vessel network'}</span>
+                </div>
               </div>
-              <div className="mission-card c3">
-                <span className="mission-card-label">🚌 {isML ? 'ഫീഡർ ബസ്' : 'Feeder Buses'}</span>
-                <span className="mission-card-sub">{isML ? 'സംയോജിത ഗതാഗതം' : 'Last-mile connectivity'}</span>
+              <div className="mission-card c3" style={{ '--bg-img': `url(${feederMissionImg})` }}>
+                <div className="mission-card-content">
+                  <span className="mission-card-label">{isML ? 'ഫീഡർ ബസ്' : 'Feeder Buses'}</span>
+                  <span className="mission-card-sub">{isML ? 'സംയോജിത ഗതാഗതം' : 'Last-mile connectivity'}</span>
+                </div>
               </div>
             </div>
 

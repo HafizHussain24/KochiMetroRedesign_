@@ -2,23 +2,31 @@
   position: fixed;
   top: 0;
   left: 0;
+  transform: none;
   width: 100%;
+  max-width: none;
   height: 80px;
+  border-radius: 0;
   z-index: 1000;
-  transition: all var(--dur-base) var(--ease-out-expo);
+  transition: all var(--trans-base);
+  color: var(--white);
 }
 
 .nav-transparent {
   background: transparent;
-  color: var(--white);
+  box-shadow: none;
+  border-color: transparent;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .nav-solid {
-  background: var(--glass-dark);
+  background: rgba(6, 18, 24, 0.92); /* Kerala Deep - natural fitting dark */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 194, 209, 0.15);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--glass-border);
-  color: var(--white);
 }
 
 .nav-container {
@@ -26,79 +34,65 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 40px; /* Logo closer to left, button closer to right */
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 /* Logo */
-.nav-logo {
+.nav-logo-premium {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
-.nav-logo:hover {
+.nav-logo-premium:hover {
   transform: none;
 }
 
-.logo-text {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+.nav-logo-premium .logo-svg {
+  height: 30px;
+  width: auto;
 }
 
-.logo-line {
-  height: 3px;
-  width: 100%;
-  background: var(--kmrl-teal);
-  margin: 2px 0;
-}
-
-.logo-subtext {
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-200);
+.logo-text-premium {
+  font-family: var(--premium-font-display, 'Fraunces', Georgia, serif);
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: #02B0AF;
+  white-space: nowrap;
 }
 
 /* Desktop Links */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 0.15rem;
 }
 
 .nav-item {
   position: relative;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-right: 1px solid rgba(255,255,255,0.12);
-}
-
-.nav-item:first-child {
-  border-left: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .nav-item a, .nav-item .nav-link-text {
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0.45rem 1rem;
+  padding: 0.45rem 0.7rem;
   white-space: nowrap;
   position: relative;
-  border-radius: var(--radius-sm);
-  transition: background var(--trans-fast), color var(--trans-fast);
+  border-radius: 30px;
+  color: rgba(255, 255, 255, 0.85);
+  transition: all var(--trans-fast);
 }
 
 .nav-item a:hover, .nav-item .nav-link-text:hover {
-  background: rgba(255,255,255,0.1);
-  color: var(--kmrl-teal);
-}
-
-.nav-item a::after, .nav-item .nav-link-text::after {
-  display: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--premium-teal, #00C2D1);
 }
 
 /* Dropdown */
@@ -107,15 +101,16 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: var(--kerala-deep);
+  background: var(--kerala-deep, #003B46);
   min-width: 180px;
-  border-radius: var(--radius-md);
+  border-radius: 16px;
   padding: 0.5rem 0;
   opacity: 0;
   visibility: hidden;
   transition: all var(--trans-fast);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border, rgba(0, 168, 181, 0.2));
+  z-index: 100;
 }
 
 .dropdown-parent:hover .dropdown-menu {
@@ -127,76 +122,89 @@
 .dropdown-menu a {
   display: block;
   padding: 0.75rem 1.5rem;
-  color: var(--white);
+  color: rgba(255, 255, 255, 0.85);
   transition: background var(--trans-fast);
 }
 
 .dropdown-menu a:hover {
-  background: rgba(7, 175, 177, 0.1);
-  color: var(--kmrl-teal);
-}
-.dropdown-menu a::after {
-  display: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--premium-teal, #00C2D1);
 }
 
 /* Actions */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
-.lang-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: inherit;
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.1);
-  transition: background var(--trans-fast);
-}
-
-.lang-toggle:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-.lang-toggle .active {
-  color: var(--kmrl-teal);
-}
-
-.lang-toggle .divider {
-  opacity: 0.5;
-}
-
-.search-btn {
-  color: inherit;
+.search-btn-premium {
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  transition: background var(--trans-fast);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all var(--trans-fast);
+  cursor: pointer;
 }
 
-.search-btn:hover {
-  background: rgba(255,255,255,0.1);
+.search-btn-premium:hover {
+  background: rgba(255, 255, 255, 0.15);
   transform: scale(1.05);
+  color: var(--premium-teal, #00C2D1);
 }
 
-.buy-ticket-btn {
+.lang-toggle-premium {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
   height: 40px;
-  padding: 0 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all var(--trans-fast);
+  cursor: pointer;
+}
+
+.lang-toggle-premium:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+  color: var(--premium-teal, #00C2D1);
+}
+
+.buy-ticket-btn-premium {
+  height: 42px;
+  padding: 0 24px;
   font-size: 0.9rem;
+  border-radius: 50px;
+  background-color: var(--premium-teal, #00C2D1);
+  color: var(--white);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--trans-base);
+}
+
+.buy-ticket-btn-premium:hover {
+  background-color: var(--premium-teal-dark, #0098A6);
+  transform: scale(1.03);
+  color: var(--white);
 }
 
 .mobile-toggle {
   display: none;
-  color: inherit;
+  color: var(--white);
   z-index: 1001;
+  cursor: pointer;
 }
 
 /* Mobile Drawer */
@@ -207,7 +215,7 @@
   width: 100%;
   max-width: 400px;
   height: 100vh;
-  background: var(--kerala-deep);
+  background: var(--premium-kerala-deep, #061218);
   z-index: 999;
   transition: right var(--trans-base);
   box-shadow: -10px 0 30px rgba(0,0,0,0.5);
@@ -244,7 +252,7 @@
 }
 
 .mobile-nav-links a {
-  font-family: var(--font-display);
+  font-family: var(--premium-font-display, 'Fraunces', Georgia, serif);
   font-size: 1.5rem;
   color: var(--white);
   font-weight: 500;
@@ -256,19 +264,19 @@
   gap: 1rem;
   margin: 0.5rem 0;
   padding-left: 1rem;
-  border-left: 2px solid rgba(7, 175, 177, 0.3);
+  border-left: 2px solid rgba(0, 194, 209, 0.3);
 }
 
 .mobile-group-title {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--kmrl-teal);
+  color: var(--premium-teal, #00C2D1);
   font-weight: 600;
 }
 
 .mobile-nav-group a {
-  font-family: var(--font-body);
+  font-family: var(--premium-font-body, 'Plus Jakarta Sans', system-ui, sans-serif);
   font-size: 1.1rem;
 }
 
@@ -280,24 +288,9 @@
   width: 100%;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .nav-item a, .nav-item .nav-link-text {
-    padding: 0.45rem 0.7rem;
-  }
-  .nav-item {
-    font-size: 0.82rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .nav-item a, .nav-item .nav-link-text {
-    padding: 0.4rem 0.6rem;
-  }
-}
-
-@media (max-width: 950px) {
-  .nav-links, .lang-toggle, .buy-ticket-btn {
+/* Responsive collapse at 1280px to prevent link wrapping and crowdedness */
+@media (max-width: 1280px) {
+  .nav-links, .search-btn-premium, .lang-toggle-premium, .buy-ticket-btn-premium {
     display: none;
   }
   .mobile-toggle {
